@@ -23,6 +23,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto getProduct(Long number) {
+//        productDAO로 부터, Product 클래스로 값을 가져온 뒤, ProductResponseDto로 변환 뒤에 리턴
         Product product = productDAO.selectProduct(number);
 
         ProductResponseDto productResponseDto = new ProductResponseDto();
@@ -36,6 +37,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto saveProduct(ProductDto productDto) {
+//        전달받은 DTO 객체를 통해 엔티티 객체를 생성해서 초기화한 후 DAO 객체로 전달하면 됨
         Product product = new Product();
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
@@ -56,6 +58,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto changeProductName(Long number, String name) throws Exception {
+//        상품정보 중 이름을 변경하는 작업을 수행
+//        이름을 변경하기 위해, 먼저 클라이언트로부터 대상을 식별할 수 있는 인덱스 값과 변경하려는 이름을 받아옵니다.
+//        받아온 뒤 값을 DTO 객체에 세팅한 뒤, 리턴
         Product changedProduct = productDAO.updateProductName(number, name);
 
         ProductResponseDto productResponseDto = new ProductResponseDto();
@@ -69,6 +74,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(Long number) throws Exception {
+//        삭제 기능만 수행
         productDAO.deleteProduct(number);
     }
 }
